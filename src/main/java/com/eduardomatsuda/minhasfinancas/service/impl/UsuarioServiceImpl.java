@@ -1,0 +1,34 @@
+package com.eduardomatsuda.minhasfinancas.service.impl;
+
+import com.eduardomatsuda.minhasfinancas.domain.Usuario;
+import com.eduardomatsuda.minhasfinancas.domain.repositories.UsuarioRepository;
+import com.eduardomatsuda.minhasfinancas.service.UsuarioService;
+
+public class UsuarioServiceImpl implements UsuarioService {
+	
+	private UsuarioRepository repository;
+	
+	public UsuarioServiceImpl(UsuarioRepository repository) {
+		super();
+		this.repository = repository;
+	}
+
+	@Override
+	public Usuario autenticar(String email, String Senha) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Usuario salvarUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void validarEmail(String email) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
