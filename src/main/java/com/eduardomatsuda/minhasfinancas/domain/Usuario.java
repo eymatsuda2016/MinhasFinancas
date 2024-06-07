@@ -9,14 +9,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "usuario", schema = "financas")
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
