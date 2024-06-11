@@ -1,10 +1,13 @@
 package com.eduardomatsuda.minhasfinancas.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eduardomatsuda.minhasfinancas.domain.Usuario;
 import com.eduardomatsuda.minhasfinancas.domain.repositories.UsuarioRepository;
+import com.eduardomatsuda.minhasfinancas.exception.ErroAutenticacao;
 import com.eduardomatsuda.minhasfinancas.exception.RegraNegocioException;
 import com.eduardomatsuda.minhasfinancas.service.UsuarioService;
 
@@ -19,8 +22,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Usuario autenticar(String email, String Senha) {
-		// TODO Auto-generated method stub
+	public Usuario autenticar(String email, String senha) {
+		Optional<Usuario> usuario = repository.findByEmail(email);
+		if(!usuario.isPresent()) {
+			throw new ErroAutenticacao("Usuario não encontrado para o e-mail informado.");
+		}
+		
+		if(!usuario.get().getSenha().equals(senha)) {
+			throw new ErroAutenticacao("Senha Inválida.");
+		}
 		return null;
 	}
 
