@@ -1,6 +1,6 @@
 package com.eduardomatsuda.minhasfinancas.service;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,29 +17,37 @@ import com.eduardomatsuda.minhasfinancas.exception.RegraNegocioException;
 @ActiveProfiles("test")
 public class UsuarioServiceTest {
 
+	public static String EMAIL = "fulano@email.com"; 
+	public static String NOME = "Fulano das Flores"; 
+	
 	@Autowired
-    UsuarioService service;
+	UsuarioService service;
 	
 	@Autowired
 	UsuarioRepository repository;
 	
 	@Test
 	public void deveValidarEmail() {
-		repository.deleteAll();
-		
-		service.validarEmail("email@email.com");
+		Assertions.assertDoesNotThrow(() -> {
+ 
+			// cenario
+			repository.deleteAll();
+ 
+			// acao
+			service.validarEmail(EMAIL);
+		});
 	}
-	
-	@Test()
+ 
+	@Test
 	public void deveLancarErroAoValidarEmailQuandoExistirEmailCadastrado() {
-		
-		Assertions.assertThat(RegraNegocioException.class, () -> {
-		Usuario usuario = Usuario.builder().nome("usuario").email("email@email.com").build();
-		
-		repository.save(usuario);
-		
-		service.validarEmail("email@email.com");
-	});
+		Assertions.assertThrows(RegraNegocioException.class, () -> {
+			//cenario
+			Usuario usuario = Usuario.builder().nome(NOME).email(EMAIL).build();		
+			repository.save(usuario);
+ 
+			//acao
+			service.validarEmail(EMAIL);
+		});
 	}
 	
 }
